@@ -24,7 +24,7 @@ class Stock
     /**
      * @var Product
      *
-     * @ORM\OneToOne(targetEntity="product",inversedBy="stock")
+     * @ORM\OneToOne(targetEntity="MainBundle\Entity\Product",inversedBy="stock")
      * @ORM\JoinColumn(name="product_id", referencedColumnName="id")
      */
     private $product;

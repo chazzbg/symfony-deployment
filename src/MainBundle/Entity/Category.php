@@ -43,6 +43,12 @@ class Category
      */
     private $products;
 
+
+    /**
+     * @ORM\OneToMany(targetEntity="MainBundle\Entity\Promotion",mappedBy="category")
+     */
+    private $promotions;
+
     /**
      * Get id
      *

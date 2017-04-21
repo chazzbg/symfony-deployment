@@ -10,4 +10,47 @@ namespace MainBundle\Repository;
  */
 class ProductRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findByPublishedAndCategory($published,$category)
+    {
+        $qb  = $this->createQueryBuilder('p');
+        $qb->select('p')
+           ->join('p.stock', 's')
+           ->where($qb->expr()->gt('p.id', '10'))
+           ->andWhere($qb->expr()->eq('p.published', ':pub'))
+           ->andWhere($qb->expr()->eq('p.category', ':category'))
+           ->andWhere($qb->expr()->between('s.count', 50, 1000))
+           ->setParameters([
+               'pub'      => $published,
+               'category' => $category
+           ]);
+
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public function fetchProductCount(){
+        $queryBuilder = $this->createQueryBuilder('p');
+
+        return $queryBuilder
+            ->select($queryBuilder->expr()->count('p'))
+            ->getQuery()->getSingleScalarResult();
+    }
+
+    /**
+     * @param $current_page 0...n
+     * @param $num_result 10
+     */
+    public function fetchProductsPaginated($current_page, $num_result)
+    {
+
+        $current_page--;
+
+        $qb = $this->createQueryBuilder('p');
+        $qb->select('p')
+           ->setFirstResult($current_page * $num_result)
+           ->setMaxResults($num_result);
+
+
+        return $qb->getQuery()->getResult();
+    }
 }
