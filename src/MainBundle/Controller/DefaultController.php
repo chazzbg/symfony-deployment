@@ -181,9 +181,8 @@ class DefaultController extends Controller
 
         $calc = $this->get('price_calculator');
 
-        $max_promotion = $this->getDoctrine()
-                              ->getRepository('MainBundle:Promotion')
-                              ->fetchBiggestPromotion();
+        $max_promotion = $this->get('promotion_manager')->getGeneralPromotion();
+
         return compact('pagination','max_promotion','calc');
     }
 

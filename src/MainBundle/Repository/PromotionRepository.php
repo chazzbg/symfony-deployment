@@ -2,6 +2,7 @@
 
 namespace MainBundle\Repository;
 
+use Doctrine\ORM\Query;
 use MainBundle\Entity\Category;
 
 /**
@@ -17,7 +18,7 @@ class PromotionRepository extends \Doctrine\ORM\EntityRepository
      *
      * @return int
      */
-    public function fetchBiggestPromotion($category = null)
+    public function fetchBiggestGeneralPromotion()
     {
         $qb = $this->createQueryBuilder('p');
 
@@ -26,16 +27,12 @@ class PromotionRepository extends \Doctrine\ORM\EntityRepository
         $qb->select('p.percent')
         ->where($qb->expr()->lte('p.startDate', ':today'))
         ->andWhere($qb->expr()->gte('p.endDate', ':today'))
+        ->andWhere($qb->expr()->isNull('p.category'))
         ->setParameter(':today', $today->format('Y-m-d'))
         ->orderBy('p.percent', 'DESC')
         ->setMaxResults(1);
 
-        if($category !== null){
-            $qb->andWhere($qb->expr()->eq('p.category',':category'));
-            $qb->setParameter(':category', $category);
-        } else {
-            $qb->andWhere($qb->expr()->isNull('p.category'));
-        }
+
 
         $query = $qb->getQuery();
 
@@ -43,6 +40,34 @@ class PromotionRepository extends \Doctrine\ORM\EntityRepository
             return $query->getSingleScalarResult();
         }
         return 0;
+    }
+
+
+    /**
+     *
+     */
+    public function fetchCategoriesPromotions()
+    {
+        $qb = $this->createQueryBuilder('p');
+
+        $today = new \DateTime();
+
+        $qb->select(['MAX(p.percent) as percent','c.id'])
+            ->join('p.category', 'c')
+           ->where($qb->expr()->lte('p.startDate', ':today'))
+           ->andWhere($qb->expr()->gte('p.endDate', ':today'))
+           ->andWhere($qb->expr()->isNotNull('p.category'))
+           ->setParameter(':today', $today->format('Y-m-d'))
+            ->groupBy('c')
+           ->orderBy('p.percent', 'DESC');
+
+        $results  = $qb->getQuery()->getResult();
+
+        $promotions = [];
+        foreach ($results as $promotion) {
+            $promotions[(int)$promotion['id']] = (int)$promotion['percent'];
+        }
+        return $promotions;
     }
 
 }

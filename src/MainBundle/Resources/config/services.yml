@@ -1,5 +1,13 @@
 # src/MainBundle/Resources/config/services.yml
 services:
+    repo.promotions:
+        class: Doctrine\ORM\EntityRepository
+        factory: ["@doctrine.orm.entity_manager", getRepository]
+        arguments:
+            - \MainBundle\Entity\Promotion
+    promotion_manager:
+        class: MainBundle\Service\PromotionManager
+        arguments: ['@repo.promotions']
     price_calculator:
         class: MainBundle\Service\PriceCalculator
-        arguments: ['@doctrine.orm.entity_manager']
+        arguments: ['@promotion_manager']

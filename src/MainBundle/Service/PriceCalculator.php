@@ -4,26 +4,15 @@ namespace MainBundle\Service;
 
 use Doctrine\ORM\EntityManager;
 use MainBundle\Entity\Product;
+use MainBundle\Repository\PromotionRepository;
 
 class PriceCalculator
 {
-    /**
-     * @var EntityManager
-     */
-    protected $emanager;
+    /** @var  PromotionManager */
+    protected $manager;
 
-    protected $promotion;
-
-    protected $category_promotions = [];
-
-    /**
-     * PriceCalculator constructor.
-     *
-     * @param EntityManager $emanager
-     */
-    public function __construct(EntityManager $emanager)
-    {
-        $this->emanager = $emanager;
+    public function __construct(PromotionManager $manager) {
+        $this->manager= $manager;
     }
 
 
@@ -34,29 +23,18 @@ class PriceCalculator
      */
     public function calculate($product)
     {
-        $category = $product->getCategory();
+        $category    = $product->getCategory();
+        $category_id = $category->getId();
 
-        if (!isset($this->category_promotions[$category->getId()])) {
-
-            $category_prom = $this->emanager
-                ->getRepository('MainBundle:Promotion')
-                ->fetchBiggestPromotion($category);
-
-            $this->category_promotions[$category->getId()] =
-                (int)$category_prom;
-
+        $promotion = $this->manager->getGeneralPromotion();
+        if($this->manager->hasCategoryPromotion($category)){
+            $promotion = $this->manager->getCategoryPromotion($category);
         }
 
-        $promotion = $this->category_promotions[$category->getId()];
-
-        if ($promotion === 0) {
-            $this->promotion = $promotion = $this->emanager
-                ->getRepository('MainBundle:Promotion')
-                ->fetchBiggestPromotion();
-
+        if(isset($this->category_promotions[$category_id])){
+            $promotion = $this->category_promotions[$category_id];
         }
 
         return $product->getPrice() - $product->getPrice() * ($promotion / 100);
     }
-
 }
