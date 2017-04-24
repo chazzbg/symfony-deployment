@@ -27,13 +27,11 @@ class PriceCalculator
         $category_id = $category->getId();
 
         $promotion = $this->manager->getGeneralPromotion();
+
         if($this->manager->hasCategoryPromotion($category)){
             $promotion = $this->manager->getCategoryPromotion($category);
         }
 
-        if(isset($this->category_promotions[$category_id])){
-            $promotion = $this->category_promotions[$category_id];
-        }
 
         return $product->getPrice() - $product->getPrice() * ($promotion / 100);
     }

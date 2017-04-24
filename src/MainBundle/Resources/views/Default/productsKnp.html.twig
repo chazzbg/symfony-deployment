@@ -8,6 +8,10 @@
     <th>{{ knp_pagination_sortable(pagination, 'Id', 'p.id') }}</th>
     <th>{{ knp_pagination_sortable(pagination, 'name', 'p.name') }}</th>
     <th>{{ knp_pagination_sortable(pagination, 'price', 'p.price') }}</th>
+
+    <form action="{{ path('cart_add') }}" method="post">
+
+
     <table class="table">
         <tr class="row">
             <th>Num</th>
@@ -20,7 +24,10 @@
         {% for key,product in pagination %}
             <tr class="row">
                 <td>{{ key+1 }}</td>
-                <td>{{ product.id }}</td>
+                <td>
+                    {{ product.id }}
+                    <input type="checkbox" value="{{ product.id }}" name="products[]">
+                </td>
                 <td>{{ product.name }}</td>
                 <td>{{ product.category.name }}</td>
                 <td>
@@ -34,7 +41,11 @@
                 <td>{{ product.stock.count }}</td>
             </tr>
         {% endfor %}
-
+        <tr>
+            <td colspan="6">
+                <button type="submit">Add to cart</button>
+            </td>
+        </tr>
         <tr>
             <td colspan="6">
                 {{ knp_pagination_render(pagination) }}
@@ -42,5 +53,8 @@
         </tr>
 
     </table>
+
+
+    </form>
 {% endblock %}
 
