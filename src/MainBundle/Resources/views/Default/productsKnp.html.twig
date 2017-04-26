@@ -1,13 +1,16 @@
 {% extends '::base.html.twig' %}
 
 {% block body %}
-
+    <p>
+        <a href="{{ path('product_add') }}">Add product</a>
+    </p>
 
     <p>All products {{ pagination.getTotalItemCount }}</p>
     <p>Max promotion active today: {{ max_promotion }}%</p>
     <th>{{ knp_pagination_sortable(pagination, 'Id', 'p.id') }}</th>
     <th>{{ knp_pagination_sortable(pagination, 'name', 'p.name') }}</th>
     <th>{{ knp_pagination_sortable(pagination, 'price', 'p.price') }}</th>
+
 
     <form action="{{ path('cart_add') }}" method="post">
 
@@ -20,6 +23,7 @@
             <th>Category name</th>
             <th>Price</th>
             <th>Stock</th>
+            <th>actions</th>
         </tr>
         {% for key,product in pagination %}
             <tr class="row">
@@ -39,6 +43,7 @@
                     {{ product_promotion | number_format(2) }}
                 </td>
                 <td>{{ product.stock.count }}</td>
+                <td><a href="{{ path('product_edit', {product:product.id}) }}">edit</a> </td>
             </tr>
         {% endfor %}
         <tr>

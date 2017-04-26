@@ -163,7 +163,7 @@ class DefaultController extends Controller
 
 
     /**
-     * @Route("/products")
+     * @Route("/products", name="products_list")
      * @Template()
      * @throws \LogicException
      */

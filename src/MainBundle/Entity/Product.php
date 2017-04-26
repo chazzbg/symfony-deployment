@@ -57,6 +57,13 @@ class Product
      */
     private $stock;
 
+
+    /**
+     * @var array
+     * @ORM\Column(name="tags", type="array")
+     */
+    private $tags;
+
     /**
      * Get id
      *
@@ -182,5 +189,22 @@ class Product
 
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getTags()
+    {
+        return $this->tags;
+    }
+
+    /**
+     * @param mixed $tags
+     */
+    public function setTags($tags)
+    {
+        $this->tags = $tags;
+    }
+
 }
 
