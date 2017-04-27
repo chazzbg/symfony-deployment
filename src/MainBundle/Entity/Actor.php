@@ -38,8 +38,8 @@ class Actor
     /**
      * @var Movie
      *
-     * @ORM\ManyToOne(targetEntity="MainBundle\Entity\Movie",inversedBy="actors")
-     * @ORM\JoinColumn(name="movie_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="MainBundle\Entity\Movie", inversedBy="actors")
+     * @ORM\JoinColumn(name="movie_id", referencedColumnName="id", nullable=false)
      */
     private $movie;
 

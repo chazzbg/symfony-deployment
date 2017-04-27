@@ -2,7 +2,7 @@
 
 namespace MainBundle\Entity;
 
-
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -37,7 +37,7 @@ class Movie
     private $year;
 
     /**
-     * @var Actor
+     * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="MainBundle\Entity\Actor", mappedBy="movie", cascade={"persist"})
      */
@@ -106,7 +106,7 @@ class Movie
     /**
      * Set actors
      *
-     * @param Actor $actors
+     * @param ArrayCollection $actors
      *
      * @return Movie
      */
@@ -120,7 +120,7 @@ class Movie
     /**
      * Get actors
      *
-     * @return Actor
+     * @return ArrayCollection
      */
     public function getActors()
     {
