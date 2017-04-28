@@ -29,7 +29,12 @@
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",
-        "symfony/phpunit-bridge": "^3.0"
+        "symfony/phpunit-bridge": "^3.0",
+        "phpunit/phpunit": "~5.7.17",
+        "phpmd/phpmd": "~2.6.0",
+        "squizlabs/php_codesniffer": "~2.8.1",
+        "sebastian/phpcpd": "~2.0.4",
+        "mayflower/php-codebrowser": "~1.1.2"
     },
     "scripts": {
         "symfony-scripts": [
@@ -48,10 +53,7 @@
         ]
     },
     "config": {
-        "platform": {
-            "php": "5.5.9"
-        },
-        "sort-packages": true
+        "bin-dir": "bin"
     },
     "extra": {
         "symfony-app-dir": "app",

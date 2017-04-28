@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class MovieControllerTest extends WebTestCase
 {
-    /*
+
     public function testCompleteScenario()
     {
         // Create a new client to browse the application
@@ -15,11 +15,12 @@ class MovieControllerTest extends WebTestCase
         // Create a new entry in the database
         $crawler = $client->request('GET', '/movie/');
         $this->assertEquals(200, $client->getResponse()->getStatusCode(), "Unexpected HTTP status code for GET /movie/");
-        $crawler = $client->click($crawler->selectLink('Create a new entry')->link());
+        $crawler = $client->click($crawler->selectLink('Create a new movie')->link());
 
         // Fill in the form and submit it
         $form = $crawler->selectButton('Create')->form(array(
-            'mainbundle_movie[field_name]'  => 'Test',
+            'mainbundle_movie[title]'  => 'Test',
+            'mainbundle_movie[year]'  => '1283',
             // ... other fields to fill
         ));
 
@@ -32,8 +33,9 @@ class MovieControllerTest extends WebTestCase
         // Edit the entity
         $crawler = $client->click($crawler->selectLink('Edit')->link());
 
-        $form = $crawler->selectButton('Update')->form(array(
-            'mainbundle_movie[field_name]'  => 'Foo',
+        $form = $crawler->selectButton('Edit')->form(array(
+            'mainbundle_movie[title]'  => 'Foo',
+            'mainbundle_movie[year]'  => '1283',
             // ... other fields to fill
         ));
 
@@ -51,5 +53,4 @@ class MovieControllerTest extends WebTestCase
         $this->assertNotRegExp('/Foo/', $client->getResponse()->getContent());
     }
 
-    */
 }
