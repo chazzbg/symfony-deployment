@@ -3,6 +3,8 @@
 namespace MainBundle\Form;
 
 use MainBundle\Entity\Product;
+use MainBundle\Transformers\CategoryTransformer;
+use MainBundle\Transformers\TagTransformer;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
@@ -15,6 +17,15 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ProductType extends AbstractType
 {
+
+    private $manager;
+
+    public function __construct($manager)
+    {
+        $this->manager = $manager;
+    }
+
+
     /**
      * {@inheritdoc}
      */
@@ -23,11 +34,16 @@ class ProductType extends AbstractType
         $builder->add('name')
                 ->add('price')
                 ->add('published')
-                ->add('tags')
-                ->add('category')
-            ->add('save', SubmitType::class,[
-                'label'=> 'Save'
-            ]);
+                ->add('tags', TextType::class)
+                ->add('category', TextType::class)
+                ->add('save', SubmitType::class, [
+                    'label' => 'Save'
+                ]);
+
+        $builder->get('tags')->addModelTransformer(new TagTransformer());
+        $builder->get('category')->addModelTransformer(
+            new CategoryTransformer($this->manager)
+        );
 
     }
 

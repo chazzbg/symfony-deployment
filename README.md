@@ -1,12 +1,12 @@
-A sample symfony project regarding lecture 22 SYMFONY ADVANCED - COMMANDS AND CRONS
-project is based on the code used in lecture 21
+A sample symfony project regarding lecture 23 SYMFONY ADVANCED - FORMS AND EVENTS
+project is based on the code used in lecture 22
 
-Defining simple command
+Defining simple transformer for transforming tags from array to string and reverse
 
-Using formatter helper 
+Defining a transformer with access to entity manager for converting category to id and reverse
 
-Using Table helper to display currently active promotions
+Two new entities are added Actor and Movie and CRUD is generated for it 
+A collection of forms is defined for actors in movie form so we can add them dynamically 
 
-Creating command for seding newsletters to a group of people
-
-Creating a cart, attaching it to a user and adding products to this cart
+An exception listener is registered for listening for kernel exception
+this listener will check if the exception is NotFoundHttpException and  render custom response , replacing the actual one 

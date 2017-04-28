@@ -4,7 +4,21 @@
     <h1>Movie creation</h1>
 
     {{ form_start(form) }}
-        {{ form_widget(form) }}
+        {{ form_row(form.title) }}
+        {{ form_row(form.year) }}
+
+        <h3>Actors</h3>
+    <ul class="actors"  data-prototype="{{ form_widget(form.actors.vars.prototype)|e}}">
+
+    {% for actor in form.actors %}
+        <li>
+            {{ form_row(actor.name) }}
+            {{ form_row(actor.characterName) }}
+        </li>
+    {% endfor %}
+
+    </ul>
+
         <input type="submit" value="Create" />
     {{ form_end(form) }}
 

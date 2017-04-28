@@ -2,6 +2,8 @@
 
 {% block body %}
 
-    cart list
+    {% for cart_product in cart.cartProducts  %}
+        <p>{{ cart_product.product.name }}</p>
+    {% endfor %}
 
 {% endblock %}

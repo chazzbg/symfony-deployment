@@ -14,7 +14,14 @@ class MovieType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('title')->add('year');
+        $builder->add('title')->add('year')->add(
+            'actors', CollectionType::class, [
+                'entry_type' => ActorType::class,
+                    'allow_add'=>true,
+                    'allow_delete' => true,
+                    'by_reference'=> true,
+            ]
+        );
     }
     
     /**

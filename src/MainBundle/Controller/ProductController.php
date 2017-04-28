@@ -36,8 +36,8 @@ class ProductController extends Controller
 
             $manager =$this->getDoctrine()->getManager();
 
-
             $manager->persist($product);
+            $manager->persist($stock);
 
             $manager->flush();
 
@@ -67,6 +67,8 @@ class ProductController extends Controller
             $manager->persist($product);
 
             $manager->flush();
+            
+            return $this->redirectToRoute('products_list');
 
         }
 

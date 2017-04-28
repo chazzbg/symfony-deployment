@@ -43,6 +43,10 @@ class Movie
      */
     private $actors;
 
+    public function __construct()
+    {
+        $this->actors = new ArrayCollection();
+    }
 
 
     /**
@@ -128,5 +132,15 @@ class Movie
     }
 
 
+    public function addActor(Actor $actor)
+    {
+        $this->actors->add($actor);
+    }
+
+
+    public function removeActor(Actor $actor)
+    {
+        $this->actors->removeElement($actor);
+    }
 }
 

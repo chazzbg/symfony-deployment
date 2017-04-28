@@ -50,6 +50,11 @@ class MovieController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($movie);
+
+            foreach ($movie->getActors() as $actor){
+                $actor->setMovie($movie);
+                $em->persist($actor);
+            }
             $em->flush();
 
             return $this->redirectToRoute('movie_show', array('id' => $movie->getId()));

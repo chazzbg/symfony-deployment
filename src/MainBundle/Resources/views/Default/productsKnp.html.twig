@@ -23,6 +23,7 @@
             <th>Category name</th>
             <th>Price</th>
             <th>Stock</th>
+            <th>Tags</th>
             <th>actions</th>
         </tr>
         {% for key,product in pagination %}
@@ -43,6 +44,9 @@
                     {{ product_promotion | number_format(2) }}
                 </td>
                 <td>{{ product.stock.count }}</td>
+                <td>{% for tag in  product.tags%}
+                        {{ tag }} ,
+                    {% endfor %}</td>
                 <td><a href="{{ path('product_edit', {product:product.id}) }}">edit</a> </td>
             </tr>
         {% endfor %}

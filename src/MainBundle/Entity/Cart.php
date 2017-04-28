@@ -42,6 +42,10 @@ class Cart
      */
     private $dateUpdated;
 
+    /**
+     * @ORM\OneToMany(targetEntity="MainBundle\Entity\CartProduct", mappedBy="cart")
+     */
+    private $cartProducts;
 
     /**
      * Get id
@@ -124,5 +128,24 @@ class Cart
     {
         return $this->dateUpdated;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getCartProducts()
+    {
+        return $this->cartProducts;
+    }
+
+    /**
+     * @param mixed $cartProducts
+     */
+    public function setCartProducts($cartProducts)
+    {
+        $this->cartProducts = $cartProducts;
+    }
+
+
+
 }
 

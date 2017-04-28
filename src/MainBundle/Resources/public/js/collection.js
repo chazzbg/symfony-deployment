@@ -8,10 +8,6 @@ jQuery(document).ready(function() {
     // Get the ul that holds the collection of actors
     $collectionHolder = $('ul.actors');
 
-// add a delete link to all of the existing actor form li elements
-    $collectionHolder.find('li').each(function() {
-        addActorFormDeleteLink($(this));
-    });
     // add a delete link to all of the existing actor form li elements
     $collectionHolder.find('li').each(function() {
         addActorFormDeleteLink($(this));

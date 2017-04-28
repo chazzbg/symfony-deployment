@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class CartController extends Controller
 {
@@ -84,6 +85,14 @@ class CartController extends Controller
      */
     public function listAction()
     {
+        $session = $this->get('session');
+        $cart = $this->getDoctrine()->getRepository('MainBundle:Cart')->find($session->get('id_cart', false));
+        if(!$cart){
+            throw  new NotFoundHttpException();
+        }
 
+        return [
+            'cart' => $cart
+        ];
     }
 }

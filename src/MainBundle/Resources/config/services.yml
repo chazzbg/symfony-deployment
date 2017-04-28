@@ -11,3 +11,14 @@ services:
     price_calculator:
         class: MainBundle\Service\PriceCalculator
         arguments: ['@promotion_manager']
+
+    type.product_type:
+        class: MainBundle\Form\ProductType
+        arguments: ['@doctrine.orm.entity_manager']
+        tags:
+            - { name: form.type }
+
+    listener.notfound:
+        class: MainBundle\EventListner\HttpNotFoundListener
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception, priority: 4096 }

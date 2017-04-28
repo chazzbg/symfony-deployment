@@ -20,6 +20,12 @@
         </tbody>
     </table>
 
+    <h3>Actors</h3>
+    <ul>
+        {% for actor in movie.actors %}
+             <li>{{ actor.name }} - {{ actor.characterName }}</li>
+        {% endfor %}
+    </ul>
     <ul>
         <li>
             <a href="{{ path('movie_index') }}">Back to the list</a>
