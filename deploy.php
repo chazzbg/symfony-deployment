@@ -35,7 +35,9 @@ task('database:migrate', function () {
     run('{{env_vars}} {{bin/php}} {{bin/console}} doctrine:schema:update --force {{console_options}}');
 })->desc('Migrate database');
 
-
+task('phpunit', function (){
+   runLocally('{{bin/php}} bin/phpunit -c phpunit.xml.dist');
+})->desc('Run tests');
 after('deploy:symlink', 'apache:restart');
 
 // [Optional] if deploy fails automatically unlock.
@@ -44,3 +46,6 @@ after('deploy:failed', 'deploy:unlock');
 // Migrate database before symlink new release.
 
 before('deploy:symlink', 'database:migrate');
+
+
+before('deploy','phpunit');
